@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>BYE</title>
@@ -8,6 +8,7 @@
 bye good you
 <a href="/hello">Say hello</a> or you can <a href="/exit">Exit</a>
 or<a href="/goodbye?name=Fisrt&surename=second"> click for parametr request</a>
+<p th:text="${message}"></p>
 
 </body>
 </html>
