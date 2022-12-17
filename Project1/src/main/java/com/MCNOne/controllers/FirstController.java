@@ -40,16 +40,16 @@ public class FirstController {
 
     public String doCalc(float a, float b, String action){
         if (action.equals("divide")){
-            return a/b+"";
+            return a+"/"+b+"="+(a/b);
         } else
         if (action.equals("plus")){
-            return a+b+"";
+            return a+"+"+b+"="+(a+b);
         } else
         if (action.equals("minus")){
-            return a-b+"";
+            return a+"-"+b+"="+(a-b);
         } else
         if (action.equals("multiple")){
-            return a*b+"";
+            return a+"*"+b+"="+(a*b);
         } else return "error, no such action";
     }
 }
