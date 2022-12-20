@@ -8,7 +8,24 @@
     <form th:method="POST" th:action="@{/people}" th:object="${person}">
         <label for="name">Enter name: </label>
         <br/>
+        <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</div>
         <input type="text" th:field="*{name}" id="name"/>
+        <br/>
+
+        <label for="email">Enter email: </label>
+        <br/>
+        <div style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email error</div>
+        <input type="text" th:field="*{email}" id="email"/>
+        <br/>
+
+        <label for="age">Enter age: </label>
+        <br/>
+        <div style="color:red" th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Age error</div>
+        <input type="text" th:field="*{age}" id="age"/>
+        <br/>
+
+        <br/>
+
         <input type="submit" value="CReate"/>
     </form>
 </body>
