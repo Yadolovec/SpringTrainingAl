@@ -13,7 +13,7 @@ public class Person {
     @Email(message = "email should be valid")
     private String email;
 
-    @Min(value=0, message = "age cannot be less than 0")
+    @Min(value=1, message = "age should be greater than 0")
     private int age;
 
     @Pattern(regexp = "[A-Z]\\w+, [A-Z]\\w+, \\d{6}",
