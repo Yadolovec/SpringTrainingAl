@@ -26,9 +26,9 @@ public class PersonDAO {
         return jdbcTemplate.query("SELECT * FROM person", new BeanPropertyRowMapper<>(Person.class));
     }
 
-    public Optional<Person> show(String email){
+    public Person show(String email){
         return jdbcTemplate.query("SELECT * FROM person WHERE email=?", new Object[]{email},
-                new BeanPropertyRowMapper<>(Person.class)).stream().findAny();
+                new BeanPropertyRowMapper<>(Person.class)).stream().findAny().orElse(null);
     }
     public Person show(int id){
         return jdbcTemplate.query("SELECT * FROM person WHERE id=?", new Object[]{id}, new PersonMapper())
@@ -42,7 +42,7 @@ public class PersonDAO {
 
     public void update(int id, Person updatedPerson){
         jdbcTemplate.update("UPDATE person SET name=?, age=?, email=?, address=? WHERE id=?",
-                updatedPerson.getName(), updatedPerson.getAge(), updatedPerson.getEmail(), id, updatedPerson.getAddress());
+                updatedPerson.getName(), updatedPerson.getAge(), updatedPerson.getEmail(), updatedPerson.getAddress(), id);
     }
 
     public void delete(int id){
