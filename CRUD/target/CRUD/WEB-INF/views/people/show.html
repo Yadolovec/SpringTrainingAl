@@ -15,6 +15,9 @@
     <a th:text="${person.getAge()}">AGE</a>
     <a> years old</a>
     <br/>
+    <a>Address: </a>
+    <a th:text="${person.getAddress()}">ADDRESS</a>
+    <br/>
     <br/>
     <a th:href="@{/people/{id}/edit (id=${person.getId()})}">Edit</a>
 <form th:method="DELETE" th:action="@{/people/{id}(id=${person.getId()})}">

@@ -24,6 +24,12 @@
         <input type="text" th:field="*{age}" id="age"/>
         <br/>
 
+        <label for="address">Enter address: </label>
+        <br/>
+        <div style="color:red" th:if="${#fields.hasErrors('address')}" th:errors="*{address}">Age error</div>
+        <input type="text" th:field="*{address}" id="address"/>
+        <br/>
+
         <br/>
 
         <input type="submit" value="UPdate"/>

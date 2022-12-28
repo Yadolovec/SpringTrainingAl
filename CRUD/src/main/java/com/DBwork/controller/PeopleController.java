@@ -30,8 +30,6 @@ public class PeopleController {
     public String index(Model model){
         //return all people from DAO
         model.addAttribute("people", personDAO.index());
-        System.out.println("GetM");
-
         return "people/index";
     }
 
@@ -53,14 +51,13 @@ public class PeopleController {
     @PostMapping()
     public String create(@ModelAttribute("person") @Valid Person person,
                          BindingResult bindingResult){
-        personValidateor.validate(person, bindingResult);
 
+        personValidateor.validate(person, bindingResult);
         if (bindingResult.hasErrors()) {
             return "people/new";
         }
 
         personDAO.save(person);
-        System.out.println("PostM");
         return "redirect:/people";
 
     }
