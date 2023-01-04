@@ -29,10 +29,15 @@ public class App
 //            session.save(personToSave3);
 //            session.save(personToSave2);
 
-            Person person = session.get(Person.class, 4);
-            System.out.println(person.getName() + ", " + person.getAge());
+//            Person person = session.get(Person.class, 4);
+//            session.delete(person);
+//            person.setName("Test22");
+            Person person = new Person("Tomas", 144);
+            session.save(person);
 
             session.getTransaction().commit();
+            System.out.println("Id is "+person.getId());
+
         } finally {
             sessionFactory.close();
         }
