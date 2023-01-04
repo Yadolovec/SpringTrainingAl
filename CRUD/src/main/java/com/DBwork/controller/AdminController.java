@@ -19,8 +19,8 @@ public class AdminController {
         this.personDAO = personDAO;
     }
     @GetMapping()
-    public String adminPage(Model model, @ModelAttribute("person") Person person){
-
+    public String adminPage(Model model/*, @ModelAttribute("person") Person person*/){
+        model.addAttribute("person", new Person());
         model.addAttribute("people",personDAO.index());
         return "admin/main";
     }
