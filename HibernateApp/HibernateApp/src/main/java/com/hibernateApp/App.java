@@ -36,7 +36,7 @@ public class App
             session.save(person);
 
             session.getTransaction().commit();
-            System.out.println("Id is "+person.getId());
+            System.out.println("Id is "+person.getId());  
 
         } finally {
             sessionFactory.close();
