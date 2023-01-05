@@ -1,10 +1,13 @@
 package com.hibernateApp;
 
+import com.hibernateApp.model.Item;
 import com.hibernateApp.model.Person;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -15,48 +18,64 @@ public class App
 {
     public static void main( String[] args )
     {
-        Configuration configuration = new Configuration().addAnnotatedClass(Person.class);
+        Configuration configuration = new Configuration()
+                .addAnnotatedClass(Person.class)
+                .addAnnotatedClass(Item.class);
 
         SessionFactory sessionFactory = configuration.buildSessionFactory();
         Session session = sessionFactory.getCurrentSession();
 
         try {
             session.beginTransaction();
+//GET OWNER`S ITMES
+//            Person person = session.get(Person.class, 1);
+//            System.out.println(person);
+//            List<Item> ownerItems = person.getItems();
+//            System.out.println(ownerItems.toString());
 
-//            Person personToSave1 = new Person("Test11", 10);
-//            Person personToSave2 = new Person("Test11", 11);
-//            Person personToSave3 = new Person("Test11", 12);
-//
-//            session.save(personToSave1);
-//            session.save(personToSave3);
-//            session.save(personToSave2);
+//GET OWNER OF ITEM
+//            Item item = session.get(Item.class, 3);
+//            System.out.println(item);
+//            Person person = item.getOwner();
+//            System.out.println(person);
 
-//            Person person = session.get(Person.class, 4);
-//            session.delete(person);
-//            person.setName("Test22");
-//            Person person = new Person("Tomas", 144);
+//NEW ITEM
+//            Person person = session.get(Person.class, 2);
+//            Item newItem = new Item("helicopter", person);
+//            // ITS NOT NECCESARY IF YOU JUST SAVE,
+//            // BUT NEED TO BE DONE IF YOU WILL CONTINUE WORK WITH THIS TRANSACTION,
+//            // COZ HIBERNATE CASHIRUET (NOT CALL DB ALL THE TIME)
+//            //            person.getItems().add(newItem); NOT MAKE ANE SQL
+//            session.save(newItem);
+
+//NEW ITEM NEW PERSON
+//            Person person = new Person("Masha", 12);
+//            Item newItem = new Item("Praska", person);
+//            person.setItems(new ArrayList<Item>(Collections.singletonList(newItem)));
 //            session.save(person);
+//            session.save(newItem); //SECOND SAVE COZ WE DONT MADE CASCAD
 
-//            session.getTransaction().commit();
-//            System.out.println("Id is "+person.getId());
+//DELETE ITEMS
+//            Person person = session.get(Person.class, 1);
+//            List<Item> items = person.getItems();
+//            items.forEach(i -> session.remove(i));
+//
+//            person.getItems().clear();// JUST GOOD MANERS
 
-            List<Person> people1 = session.createQuery("FROM Person").getResultList();
-            for (Person p : people1)
-                System.out.println(p.getName()+", "+p.getAge());
+//DELETE PERSON
+//            Person person = session.get(Person.class, 4);
+//            session.remove(person);
+//            person.getItems().forEach(i -> i.setOwner(null));
 
-            List<Person> people = session.createQuery("FROM Person WHERE age>=12").getResultList();
-            for (Person p : people)
-                System.out.println(p.getName()+", "+p.getAge());
-            people = session.createQuery("FROM Person WHERE name LIKE '%St%'").getResultList();
-            for (Person p : people)
-                System.out.println(p.getName()+", "+p.getAge());
+//CHANGE OWNER
 
-//            session.createQuery("UPDATE Person SET name='HOLO' WHERE name LIKE '%st%'").executeUpdate();
-            session.createQuery("DELETE FROM Person WHERE age>11").executeUpdate();
-            
-            for (Person p : people1)
+            Person person = session.get(Person.class, 3);
+            Item item = session.get(Item.class, 3);
 
-                System.out.println(p.getName()+", "+p.getAge());
+            item.getOwner().getItems().remove(item);
+
+            item.setOwner(person);
+            person.getItems().add(item);
 
             session.getTransaction().commit();
         } finally {
