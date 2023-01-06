@@ -69,14 +69,25 @@ public class App
 
 //CHANGE OWNER
 
-            Person person = session.get(Person.class, 3);
-            Item item = session.get(Item.class, 3);
+//            Person person = session.get(Person.class, 3);
+//            Item item = session.get(Item.class, 3);
+//
+//            item.getOwner().getItems().remove(item);
+//
+//            item.setOwner(person);
+//            person.getItems().add(item);
 
-            item.getOwner().getItems().remove(item);
+            Person person = new Person("JulianAa", 343);
+////            Item item = new Item("ItemMM", person);
+//            person.setItems(new ArrayList<>(Collections.singletonList(item)));
+//            item.setOwner(person);
+            person.addItem(new Item("IteM1"));
+            person.addItem(new Item("IteM2"));
+            person.addItem(new Item("IteM3"));
 
-            item.setOwner(person);
-            person.getItems().add(item);
 
+            session.save(person);
+//            session.save(item);
             session.getTransaction().commit();
         } finally {
             sessionFactory.close();

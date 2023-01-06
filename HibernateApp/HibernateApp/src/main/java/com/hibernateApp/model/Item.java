@@ -15,8 +15,7 @@ public class Item {
     @Column (name="itemname")
     private String itemname;
 
-    public Item(String itemname, Person owner) {
-        this.owner = owner;
+    public Item(String itemname) {
         this.itemname = itemname;
     }
     public Item() {

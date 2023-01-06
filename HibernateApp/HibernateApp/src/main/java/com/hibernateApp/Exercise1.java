@@ -45,13 +45,31 @@ public class Exercise1
 //            session.save(director);
 //            session.save(movie);
 
-            Director director = session.get(Director.class, 1);
+
+// delete some film
+//            Director director = session.get(Director.class, 1);
+//
+//            director.getMovies().forEach(m -> System.out.println(m.getName()));
+//            System.out.println("ppppppppppppppppppppppppppp");
+//            Movie movie = session.get(Movie.class, 12);
+//            session.remove(movie);
+//            director.getMovies().remove(movie);
+//
+//            director.getMovies().forEach(m -> System.out.println(m.getName()));
+
+            Director director = session.get(Director.class,7);
+            Movie movie = session.get(Movie.class, 8);
+
 
             director.getMovies().forEach(m -> System.out.println(m.getName()));
-            System.out.println("ppppppppppppppppppppppppppp");
-            Movie movie = session.get(Movie.class, 12);
-            session.remove(movie);
-            director.getMovies().remove(movie);
+            System.out.println("GGGGGGGGGGGGGGG");
+
+            movie.getDirector().getMovies().remove(movie);
+            movie.setDirector(director);
+            director.getMovies().add(movie);
+
+            session.save(director);
+            session.save(movie);
 
             director.getMovies().forEach(m -> System.out.println(m.getName()));
 
