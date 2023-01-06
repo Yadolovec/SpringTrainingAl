@@ -1,7 +1,9 @@
 package com.hibernateApp;
 
 import com.hibernateApp.model.Item;
+import com.hibernateApp.model.Passport;
 import com.hibernateApp.model.Person;
+import com.hibernateApp.model.Personp;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -19,8 +21,8 @@ public class App
     public static void main( String[] args )
     {
         Configuration configuration = new Configuration()
-                .addAnnotatedClass(Person.class)
-                .addAnnotatedClass(Item.class);
+                .addAnnotatedClass(Personp.class)
+                .addAnnotatedClass(Passport.class);
 
         SessionFactory sessionFactory = configuration.buildSessionFactory();
         Session session = sessionFactory.getCurrentSession();
@@ -77,17 +79,38 @@ public class App
 //            item.setOwner(person);
 //            person.getItems().add(item);
 
-            Person person = new Person("JulianAa", 343);
-////            Item item = new Item("ItemMM", person);
-//            person.setItems(new ArrayList<>(Collections.singletonList(item)));
-//            item.setOwner(person);
-            person.addItem(new Item("IteM1"));
-            person.addItem(new Item("IteM2"));
-            person.addItem(new Item("IteM3"));
-
-
-            session.save(person);
+//            Person person = new Person("JulianAa", 343);
+//////            Item item = new Item("ItemMM", person);
+////            person.setItems(new ArrayList<>(Collections.singletonList(item)));
+////            item.setOwner(person);
+//            person.addItem(new Item("IteM1"));
+//            person.addItem(new Item("IteM2"));
+//            person.addItem(new Item("IteM3"));
+//
+//
+//            session.save(person);
 //            session.save(item);
+//            Personp person = new Personp("Test chel", 123 );
+//            Passport passport = new Passport( 12345);
+//            person.setPassport(passport);
+
+//            Personp person = session.get(Personp.class, 1);
+//            System.out.println(person.getPassport().getPassportNumber());
+
+//            Passport passport = session.get(Passport.class, 1);
+//            System.out.println(passport.getPersonp().getName());
+
+//            Personp personp = session.get(Personp.class, 1);
+//            personp.getPassport().setPassportNumber(777677);
+
+            Personp personp = session.get(Personp.class, 4);
+            personp.setPassport(new Passport(6654321));
+
+
+
+
+//            session.save(person);
+
             session.getTransaction().commit();
         } finally {
             sessionFactory.close();
