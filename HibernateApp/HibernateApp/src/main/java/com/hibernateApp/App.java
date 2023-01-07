@@ -4,6 +4,7 @@ import com.hibernateApp.model.Item;
 import com.hibernateApp.model.Passport;
 import com.hibernateApp.model.Person;
 import com.hibernateApp.model.Personp;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -22,7 +23,9 @@ public class App
     {
         Configuration configuration = new Configuration()
                 .addAnnotatedClass(Personp.class)
-                .addAnnotatedClass(Passport.class);
+                .addAnnotatedClass(Passport.class)
+                .addAnnotatedClass(Person.class)
+                .addAnnotatedClass(Item.class);
 
         SessionFactory sessionFactory = configuration.buildSessionFactory();
         Session session = sessionFactory.getCurrentSession();
@@ -103,15 +106,36 @@ public class App
 //            Personp personp = session.get(Personp.class, 1);
 //            personp.getPassport().setPassportNumber(777677);
 
-            Personp personp = session.get(Personp.class, 4);
-            personp.setPassport(new Passport(6654321));
+//            Personp personp = session.get(Personp.class, 4);
+//            personp.setPassport(new Passport(6654321));
 
 
 
 
 //            session.save(person);
 
+
+            // LAZY AND EAGER LOADING
+
+            Person person = session.get(Person.class, 2);
+            System.out.println("We get a person");
+
             session.getTransaction().commit();
+            System.out.println("Out of session");
+
+            session = sessionFactory.getCurrentSession();
+            session.beginTransaction();
+
+//            person = (Person) session.merge(person);
+//            Hibernate.initialize(person.getItems());
+
+            List<Item> items = session.createQuery("select j from Item j where j.owner.id = :personIdd", Item.class)
+                    .setParameter("personIdd", person.getId()).getResultList();
+
+            session.getTransaction().commit();
+            System.out.println("Out of second session");
+//            System.out.println(person.getItems());
+            System.out.println(items);
         } finally {
             sessionFactory.close();
         }
