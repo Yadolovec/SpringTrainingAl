@@ -35,7 +35,7 @@ public class PersonDAO {
         session.save(person);
     }
     @Transactional
-    public void update(int id, Person updatedPerson){
+    public void update(Person updatedPerson){
         Session session = sessionFactory.getCurrentSession();
         session.update(updatedPerson);
     }
