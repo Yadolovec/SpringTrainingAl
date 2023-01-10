@@ -1,7 +1,7 @@
 package com.app.controller;
 
-import com.app.DAO.PersonDAO;
 import com.app.models.Person;
+import com.app.services.PeopleService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -10,14 +10,15 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/people")
 public class PeopleController {
 
-    private final PersonDAO personDAO;
+    private final PeopleService peopleService;
 
-    public PeopleController(PersonDAO personDAO) {
-        this.personDAO = personDAO;
+    public PeopleController(PeopleService peopleService) {
+        this.peopleService = peopleService;
     }
+
     @GetMapping()
     public String index(Model model){
-        model.addAttribute("people", personDAO.index());
+        model.addAttribute("people", peopleService.findAll());
         return "people/index";
     }
 
@@ -30,31 +31,31 @@ public class PeopleController {
     @PostMapping()
     public String created(@ModelAttribute Person person){
 //        Person person = (Person) model.getAttribute("person");////////////////////DONT WORK
-        personDAO.save(person);
+        peopleService.save(person);
         return "redirect:/people";
     }
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model){
-        model.addAttribute("person", personDAO.show(id));
+        model.addAttribute("person", peopleService.findOne(id));
         return "people/show";
     }
 
     @GetMapping("/{id}/edit")
     public String edit(@PathVariable("id") int id, Model model){
-        model.addAttribute("person", personDAO.show(id));
+        model.addAttribute("person", peopleService.findOne(id));
         return "people/edit";
     }
 
     @PatchMapping("/{id}")
     public String edited(@PathVariable("id") int id, @ModelAttribute Person person) {
-        personDAO.update(person);
+        peopleService.update(id, person);
         return "redirect:/people/"+id;
     }
 
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") int id){
-        personDAO.delete(id);
+        peopleService.delete(id);
         return "redirect:/people";
     }
 
