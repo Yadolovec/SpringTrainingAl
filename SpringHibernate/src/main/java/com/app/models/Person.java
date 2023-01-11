@@ -1,6 +1,7 @@
 package com.app.models;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "person")
@@ -17,11 +18,26 @@ public class Person {
     @Column(name = "age")
     private int age;
 
+    @Column(name = "email")
+    private String email;
+
+    @OneToMany(mappedBy = "owner")
+    private List<Item> items;
+
     public Person(){}
 
-    public Person(String name, int age) {
+    public Person(String name, int age, String email) {
         this.name = name;
         this.age = age;
+        this.email = email;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public int getId() {
@@ -46,5 +62,23 @@ public class Person {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", email='" + email + '\'' +
+                '}';
     }
 }

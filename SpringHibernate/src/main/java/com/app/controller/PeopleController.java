@@ -1,6 +1,7 @@
 package com.app.controller;
 
 import com.app.models.Person;
+import com.app.services.ItemsService;
 import com.app.services.PeopleService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,14 +12,21 @@ import org.springframework.web.bind.annotation.*;
 public class PeopleController {
 
     private final PeopleService peopleService;
+    private final ItemsService itemsService;
 
-    public PeopleController(PeopleService peopleService) {
+    public PeopleController(PeopleService peopleService, ItemsService itemsService) {
         this.peopleService = peopleService;
+        this.itemsService = itemsService;
     }
 
     @GetMapping()
     public String index(Model model){
         model.addAttribute("people", peopleService.findAll());
+
+        itemsService.findByItemName("Airpods");
+        itemsService.findByOwner(peopleService.findAll().get(0));
+        peopleService.test();
+
         return "people/index";
     }
 
@@ -37,6 +45,7 @@ public class PeopleController {
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model){
+
         model.addAttribute("person", peopleService.findOne(id));
         return "people/show";
     }

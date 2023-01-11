@@ -13,6 +13,12 @@
     <a th:text="${person.getAge()}">AGE</a>
     <a> years old</a>
     <br/>
+    <a>Email: </a>
+    <a th:text="${person.getEmail()}">EMAIL</a>
+    <br/>
+    <div th:each = "item : ${person.getItems()}">
+        <a th:text="${item.getItemName()}"></a>
+    </div>
     <hr/>
     <a th:href="@{/people/{id}/edit (id=${person.getId()})}">Edit</a>
 <form th:method="DELETE" th:action="@{/people/{id}(id=${person.getId()})}">

@@ -2,6 +2,7 @@ package com.app.services;
 
 import com.app.models.Person;
 import com.app.repositories.PeopleRepository;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +25,7 @@ public class PeopleService {
 
     public Person findOne(int id){
         Optional<Person> person = peopleRepository.findById(id);
+        Hibernate.initialize(person.get().getItems());
         return person.orElse(null);
     }
 
@@ -41,5 +43,9 @@ public class PeopleService {
     @Transactional
     public void delete(int id){
         peopleRepository.deleteById(id);
+    }
+
+    public void test(){
+        System.out.println("Testing with debugger");
     }
 }
