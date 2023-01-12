@@ -37,6 +37,7 @@ public class Person {
     private Date createdAt;
 
     @Enumerated(EnumType.STRING)
+//    @Enumerated(EnumType.ORDINAL)
     private Mood mood;
 
     public Person(){}
