@@ -1,5 +1,6 @@
 package com.app.controller;
 
+import com.app.DAO.PersonDAO;
 import com.app.models.Person;
 import com.app.services.ItemsService;
 import com.app.services.PeopleService;
@@ -14,15 +15,18 @@ public class PeopleController {
     private final PeopleService peopleService;
     private final ItemsService itemsService;
 
-    public PeopleController(PeopleService peopleService, ItemsService itemsService) {
+    private final PersonDAO personDAO;
+
+    public PeopleController(PeopleService peopleService, ItemsService itemsService, PersonDAO personDAO) {
         this.peopleService = peopleService;
         this.itemsService = itemsService;
+        this.personDAO = personDAO;
     }
 
     @GetMapping()
     public String index(Model model){
         model.addAttribute("people", peopleService.findAll());
-
+        personDAO.nPlusOnePr();
         itemsService.findByItemName("Airpods");
         itemsService.findByOwner(peopleService.findAll().get(0));
         peopleService.test();
