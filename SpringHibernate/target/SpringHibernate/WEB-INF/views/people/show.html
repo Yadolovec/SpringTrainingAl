@@ -16,6 +16,10 @@
     <a>Email: </a>
     <a th:text="${person.getEmail()}">EMAIL</a>
     <br/>
+    <a>Birthday: </a>
+    <a th:text="${person.getDateOfBirth()}">DateOfBirth</a>
+    <br/>
+    <br/>
     <div th:each = "item : ${person.getItems()}">
         <a th:text="${item.getItemName()}"></a>
     </div>
