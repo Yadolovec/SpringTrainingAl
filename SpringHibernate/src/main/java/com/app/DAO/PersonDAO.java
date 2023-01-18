@@ -26,7 +26,7 @@ public class PersonDAO {
 //        //for every get there is DB action
 //        for (Person p : people)
 //            System.out.println(p.getName()+" have "+p.getItems());
-        //Solution
+        //Solution, hashset is not necessarily, just for avoiding clone while sout
         Set<Person> people = new HashSet<Person>(session.createQuery("select p from Person p left join fetch p.items", Person.class).getResultList());
         for (Person p : people)
             System.out.println(p.getName()+" have "+p.getItems());
